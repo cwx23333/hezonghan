@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="个人简历与作品集 - 展示专业技能与工作经验 | 现代简洁的在线个人网站">
+    <meta name="author" content="您的名字">
+    <title>何宗瀚 | 个人信息网站</title>
+    <!-- Google Fonts + Font Awesome 6 (免费图标库) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f6f9fc 0%, #edf2f7 100%);
+            color: #1a2a3f;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(0px);
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 简介区域 (头像+介绍) */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .avatar {
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .avatar img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            object-position: center 20%;
+            border-radius: 50%;
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.2);
+            border: 4px solid white;
+            transition: transform 0.3s;
+        }
+        .avatar img:hover {
+            transform: scale(1.02);
+        }
+        .hero-info {
+            flex: 1;
+        }
+        .hero-info h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1F3B4C, #2C5A6E);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .hero-tagline {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2c6e8f;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero-bio {
+            color: #2d3e50;
+            margin: 1rem 0 1.2rem 0;
+            font-size: 1rem;
+            max-width: 85%;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid #cbdde9;
+            color: #1f3b4c;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background: #1f3b4c;
+            border-color: #1f3b4c;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover {
+            background: #14303e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.15);
+        }
+        .btn-outline:hover {
+            background: #eef3f8;
+            border-color: #2c6e8f;
+            transform: translateY(-2px);
+        }
+
+        /* 区域标题 */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.3px;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, #2c6e8f, #8fc1d4);
+            border-radius: 4px;
+        }
+
+        /* 技能组 */
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 0.5rem;
+        }
+        .skill-tag {
+            background: #e3f0f5;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #154757;
+            transition: all 0.2s;
+            border: 1px solid #cce2ec;
+        }
+        .skill-tag:hover {
+            background: #cde3ed;
+            transform: translateY(-2px);
+        }
+
+        /* 经验/教育 时间线条目 */
+        .timeline-item {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+        }
+        .timeline-icon {
+            width: 48px;
+            height: 48px;
+            background: #ddeef6;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #1f5e7a;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .timeline-sub {
+            font-weight: 600;
+            color: #2c6e8f;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+        .timeline-desc {
+            color: #2c3e4e;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* 项目卡片网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem;
+            transition: all 0.25s;
+            border: 1px solid #e0edf3;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+        }
+        .project-card:hover {
+            border-color: #bddce9;
+            transform: translateY(-5px);
+            box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.1);
+        }
+        .project-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 0.8rem 0;
+        }
+        .project-tech span {
+            background: #ecf3f7;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .project-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .project-links a {
+            color: #1f5e7a;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .project-links a i {
+            margin-right: 4px;
+        }
+        .project-links a:hover {
+            color: #0f3b4b;
+            text-decoration: underline;
+        }
+
+        /* 联系区域 */
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin: 1.2rem 0 0.5rem;
+        }
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            background: #f1f7fb;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+        }
+        .contact-item i {
+            font-size: 1.1rem;
+            color: #1f5e7a;
+        }
+        .contact-item:hover {
+            background: #e2eef6;
+            transform: translateY(-2px);
+            color: #0e3f52;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            font-size: 0.8rem;
+            color: #5f7f92;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        /* 响应式 */
+        @media (max-width: 780px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-info h1 {
+                font-size: 2.2rem;
+            }
+            .hero-bio {
+                max-width: 100%;
+            }
+            .btn-group {
+                justify-content: center;
+            }
+            .section-title:after {
+                width: 100%;
+            }
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.2rem;
+            }
+            .hero-info h1 {
+                font-size: 1.9rem;
+            }
+        }
+        /* 自定义分隔 */
+        hr {
+            margin: 0.2rem 0 1rem;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #cbdde9, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部简介卡片 -->
+        <div class="card">
+            <div class="hero">
+                <div class="avatar">
+                    <!-- 👇 替换为您自己的头像URL (建议 1:1 正方形图片) -->
+                    <img src="图片1.png" alt="个人头像" 
+                         onerror="this.src='https://ui-avatars.com/api/?background=2c6e8f&color=fff&name=Z+S'">
+                </div>
+                <div class="hero-info">
+                    <h1>何宗瀚 · hezonghan</h1>
+                    <div class="hero-tagline">
+                        <i class="fas fa-code"></i> 意向：软件开发 / 网络安全运维
+                        <span style="font-size: 0.8rem; background:#eef3f8; padding:2px 10px; border-radius:20px;"></span>
+                    </div>
+                    <div class="hero-bio">
+                        热爱构建美观精致的Web页面。具备辅助项目落地能力，在前端设计交互有过丰富的实践。
+                        乐于分享技术知识，善于团队协作，持续追求软件及网络工程的技术提升与实践。
+                    </div>
+                    <div class="btn-group">
+                        <a href="./何宗瀚个人简历.pdf" class="btn btn-primary" id="downloadResumeBtn" download>
+                            <i class="fas fa-file-pdf"></i> 下载简历 (PDF)
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <i class="fas fa-paper-plane"></i> 联系我
+                        </a>
+                        <a href="https://github.com/cwx23333" target="_blank" class="btn btn-outline">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技能专区 -->
+        <div class="card">
+            <div class="section-title">核心技术</div>
+            <div class="skills-wrapper">
+                <span class="skill-tag">JavaScript </span>
+                <span class="skill-tag">网络安全监测</span>
+                <span class="skill-tag">Visual studio code</span>
+                <span class="skill-tag">.html页面设计</span>
+                <span class="skill-tag">python</span>
+                <span class="skill-tag">tare软件使用</span>
+                <span class="skill-tag">WPS的熟练运用</span>
+                <span class="skill-tag">美观的ppt的页面构成设计</span>
+                <span class="skill-tag">远程桌面的配置与使用</span>
+                <span class="skill-tag">网络VPN的配置与使用</span>
+            </div>
+            <hr>
+            <div style="margin-top:1rem">
+                <i class="fas fa-language"></i> 
+            </div>
+        </div>
+
+        <!-- 工作经验 + 教育 -->
+        <div class="card">
+            <div class="section-title">职业经历</div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">网络服务产品销售 · 扬州市移动分公司</div>
+                    <div class="timeline-sub">2022.07 – 2022.09 | 扬州</div>
+                    <div class="timeline-desc">
+                        负责公司网络服务产品的销售，售后使用反馈收集。制定目标客户群体，设计与客户交流沟通的话术，以及产品内容优点的介绍。
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">公司创始股东 · 扬州市清云众联网络科技有限责任公司</div>
+                    <div class="timeline-sub">2022.07 – 至今 | 扬州</div>
+                    <div class="timeline-desc">
+                        负责公司网络技术服务提供，科技推广和应用服务，技术开发、技术咨询，互联网销售商品管理。
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">网络安全运维 · 兰州市丝绸之路大数据有限公司</div>
+                    <div class="timeline-sub">2026.01 – 2026.06 | 兰州</div>
+                    <div class="timeline-desc">
+                        参与公司项目研发材料整理；负责公司客户网络安全日常监测；参与可视化数据大屏设计，协助团队完成日常工作文件，表格，ppt制作。
+                    </div>
+                </div>
+            </div>
+            <div class="section-title" style="margin-top: 1rem;">教育背景</div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">高中教育经历</div>
+                    <div class="timeline-sub">兰州大学附属中学 · 2019 – 2021 </div>
+                    <div class="timeline-desc">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-university"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">软件工程 学士</div>
+                    <div class="timeline-sub">南京邮电大学通达学院 · 2021 – 2026</div>
+                    <div class="timeline-desc">
+                        主修课程：数据结构、操作系统、Web开发，毕业设计《基于Spring Boot的养老服务系统设计与实现》。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目展示 -->
+        <div class="card">
+            <div class="section-title">精选项目</div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">
+                        <i class="fas fa-store"></i> 区域性综合服务平台-清云众联电商平台
+                    </div>
+                    <div class="timeline-desc">
+                        完成清云众联小程序UI设计，实现小程序各级交互联接、商品搜索、购物车及订单支付沙箱模拟。
+                    </div>
+                    <div class="project-tech">
+                        <span>Next.js</span><span>Tailwind</span><span>MongoDB</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">
+                        <i class="fas fa-chart-line"></i> 颐（E）养天年
+                    </div>
+                    <div class="timeline-desc">
+                        对于大学生家庭中以及学校周边小区老年人的生活情况的数据调研报告，创建了老年人身体各项基础指标的数据库，完成了项目计划书以及比赛用PPT。
+                    </div>
+                    <div class="project-tech">
+                        <span>React</span><span>ECharts</span><span>WebSocket</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">
+                        <i class="fas fa-robot"></i> 慧眼识语·基于Mediapipe的手势识别系统
+                    </div>
+                    <div class="timeline-desc">
+                        基于Mediapipe建立的21个手部关键节点，定义各种手势的意义建立训练模型，使系统更加精准的正确识别手势，并且测试其性能收集实验数据。
+                    </div>
+                    <div class="project-tech">
+                        <span>Vue3</span><span>Flask</span><span>OpenAI API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 联系 & 社交卡片 -->
+        <div class="card" id="contact">
+            <div class="section-title">联系 & 社交</div>
+            <div class="contact-links">
+                <a href="mailto:2384880866@qq.com" class="contact-item">
+                    <i class="fas fa-envelope"></i> 23884880866@qq.com
+                </a>
+                <a href="https://github.com/cwx23333" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i> https://github.com/cwx23333
+                </a>
+                <a href="#" class="contact-item" id="wechatSimulate">
+                    <i class="fab fa-weixin"></i> 微信: ecf1127
+                </a>
+            </div>
+            <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; background:#F0F6FA; padding: 12px; border-radius: 40px;">
+                <i class="fas fa-map-marker-alt"></i> 中国 · 兰州 
+                <br><small>⭐ 可随时到岗，期待与优秀团队共创价值</small>
+            </div>
+        </div>
+        <footer>
+            © 2025 何宗瀚 · 简历网站 | 源码托管于 <i class="fab fa-github"></i> GitHub Pages | 设计简洁迭代
+        </footer>
+    </div>
+
+    <!-- 增加轻交互: 简历下载模拟提示 + 微信复制提醒 -->
+    <script>
+        (function() {
+            // 模拟简历下载 
+            const downloadBtn = document.getElementById('downloadResumeBtn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', (e) => {
+                    // 现在链接已指向真实的PDF文件，直接下载即可
+                });
+            }
+
+            // 微信复制提示 (展示微信号)
+            const wechatDiv = document.getElementById('wechatSimulate');
+            if (wechatDiv) {
+                wechatDiv.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // 模拟复制微信号到剪贴板
+                    const wechatId = 'ecf1127';
+                    navigator.clipboard.writeText(wechatId).then(() => {
+                        alert('✅ 微信号 "ecf1127" 已复制，可添加微信交流～');
+                    }).catch(() => {
+                        alert('📱 微信号：ecf1127 (添加请备注“个人简历”)');
+                    });
+                });
+            }
+            // 所有项目预览/源码链接占位提示（优雅提醒修改）
+            const projectLinks = document.querySelectorAll('.project-links a');
+            projectLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    const href = link.getAttribute('href');
+                    if (href === '#') {
+                        event.preventDefault();
+                        alert('🔗 示例项目链接：请将本链接替换为实际仓库地址或项目演示URL。\n这里只是简历模板，放心修改成自己的真实项目即可～');
+                    }
+                });
+            });
+            // 社交联系占位提示（github等，若链接为原示例则提醒）
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach(item => {
+                const linkHref = item.getAttribute('href');
+                if (linkHref && (linkHref.includes('yourusername') || linkHref.includes('yourprofile') || linkHref === '#')) {
+                    item.addEventListener('click', (e) => {
+                        if (linkHref === '#' || linkHref.includes('yourusername')) {
+                            e.preventDefault();
+                            alert('🌐 请将社交链接替换为真实的个人主页 / GitHub / LinkedIn 地址。\n模板方便您快速修改内容～');
+                        }
+                    });
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
